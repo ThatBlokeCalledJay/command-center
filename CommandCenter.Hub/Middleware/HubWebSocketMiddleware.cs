@@ -45,7 +45,7 @@ namespace CommandCenter.Hub.Middleware
         private async Task Receive(WebSocket socket, Action<WebSocketReceiveResult, byte[]> messageHandler)
         {
             HubClient client = null;
-            
+
             while (socket.State == WebSocketState.Open)
             {
                 var jsonData = await ReceiveStringAsync(socket, CancellationToken.None);
@@ -61,25 +61,23 @@ namespace CommandCenter.Hub.Middleware
                 if (message.MessageType == MessageType.Register)
                 {
                     var action = message.ToAction<RegisterAction>();
-                    
+
                     client = client ?? new HubClient(message.ClientId, action.ClientName, action.ClientType);
                     await client.SetSocket(socket);
 
                     _clientManager.TryAddClient(client);
-                    
-                    if(!string.IsNullOrWhiteSpace(message.MessageId))
-                        //### inform the client that registration was successful.
-                        await _clientManager.SendMessage(message.ClientId,
-                            new ActionMessage
-                            {
-                                
-                                MessageType = MessageType.Registered
-                            });
+
+                    //### inform the client that registration was successful.
+                    await _clientManager.SendMessage(message.ClientId,
+                        new ActionMessage
+                        {
+                            MessageType = MessageType.Registered
+                        });
                 }
 
                 //### If there isn't a registered client object for this socket
                 //### don't continue processing this message
-                if(client == null)
+                if (client == null)
                     continue;
 
                 if (message.MessageType == MessageType.MoveCommand)
@@ -96,7 +94,7 @@ namespace CommandCenter.Hub.Middleware
                 }
 
                 //### If a messageId has been provided
-                if(!string.IsNullOrWhiteSpace(message.MessageId))
+                if (!string.IsNullOrWhiteSpace(message.MessageId))
                     //### inform the client that the message has been received and processed.
                     await _clientManager.SendMessage(message.ClientId,
                         new ActionMessage
@@ -104,7 +102,6 @@ namespace CommandCenter.Hub.Middleware
                             MessageId = message.MessageId,
                             MessageType = MessageType.Confirmation
                         });
-
             }
         }
 

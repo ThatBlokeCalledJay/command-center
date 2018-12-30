@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
 
 namespace CommandCenter.Hub
 {
@@ -22,11 +21,7 @@ namespace CommandCenter.Hub
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddJsonOptions(jsonOptions =>
-                {
-                    jsonOptions.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                });;
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSingleton<ClientManager>();
         }
