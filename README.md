@@ -1,5 +1,5 @@
-# command-center
-A fun project allowing multiple clients to register on a central hub and send messages to each other.
+# Command-Center
+A fun project allowing multiple clients to register on a central hub and send messages to each other via the hub.
 
 # Hub:
 The hub is written in C# and uses WebSockets as it's primary method of communation.
