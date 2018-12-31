@@ -30,8 +30,13 @@ namespace CommandCenter.Hub.Code
         {
             if (Socket != null)
             {
-                if (Socket.State == WebSocketState.Open)
-                    await Socket.CloseAsync(closeStatus, statusDescription, cancellationToken);
+                try
+                {
+                    if (Socket.State == WebSocketState.Open)
+                        await Socket.CloseAsync(closeStatus, statusDescription, cancellationToken);
+                }
+                catch { }
+
 
                 Socket.Dispose();
             }

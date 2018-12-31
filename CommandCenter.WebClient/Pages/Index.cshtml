@@ -1,10 +1,31 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Purple Square";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center row">
+    <div class="text-center">
+        <h1 class="display-4">Purple Square</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <div id="purple-square" class="purple-square"></div>
+        <div>Command: <select id="select-actors"><option value="actor-alpha">Actor Alpha</option><option value="actor-bravo">Actor Bravo</option></select> : <span id="stat-text"></span></div>
+        <div>
+            <button type="button" id="btn-connect" class="btn btn-primary">Connect</button>
+            <button type="button" id="btn-disconnect" class="btn btn-danger">Disconnect</button>
+        </div>
+        <div>
+            <span id="mouse-state" class="badge badge-danger">Mouse Input</span>
+        </div>
+        <div>
+            <input id="chk-controller-input" type="checkbox" />&nbsp;
+            <label for="chk-controller-input">Controller input</label>
+        </div>
+
+        <select id="select-gamepad"></select>
+    </div>
 </div>
