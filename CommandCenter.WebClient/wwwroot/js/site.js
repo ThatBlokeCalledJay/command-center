@@ -176,7 +176,7 @@ var mouseDown = false;
 
 $(function () {
 
-    let hubUrl = "wss://localhost:44396/";
+    let hubUrl = "ws://localhost:5000/";
 
     control = new HubClient(hubUrl, "control1", "Control", CLIENT_TYPE["Control"]);
 
@@ -217,7 +217,7 @@ $(function () {
             $("#stat-text").text(`X:${axis.X} Y:${axis.Y}`);
 
             if (mouseDown)
-                control.SendMoveCommand(actors[actor].clientId, axis.X, axis.Y);
+                control.SendMoveCommand(actor, axis.X, axis.Y);
         }
     });
 
@@ -252,7 +252,7 @@ $(function () {
 
             if (mouseDown) {
                 var actor = document.getElementById("select-actors").value;
-                control.SendMoveCommand(actors[actor].clientId, axis.X, axis.Y);
+                control.SendMoveCommand(actor, axis.X, axis.Y);
             }
         }
     });
@@ -290,7 +290,7 @@ function doConnect(client) {
 function sendStopCommand() {
     $("#stat-text").text(`X:${0} Y:${0}`);
     var actor = document.getElementById("select-actors").value;
-    control.SendMoveCommand(actors[actor].clientId, 0, 0);
+    control.SendMoveCommand(actor, 0, 0);
 }
 
 function checkMouseDown() {
@@ -377,7 +377,7 @@ function updateStatus() {
             var axisValues = inputManager.ProcessInput((preX * 100).toFixed(0), (preY * 100).toFixed(0));
             $("#stat-text").text(`X:${axisValues.X} Y:${axisValues.Y}`);
 
-            control.SendMoveCommand(actors[actor].clientId, axisValues.X, axisValues.Y);
+            control.SendMoveCommand(actor, axisValues.X, axisValues.Y);
         }
     }
     rAF(updateStatus);
