@@ -13,6 +13,8 @@ MESSAGE_TYPE["Request"] = 300;
 MESSAGE_TYPE["Data"] = 400;
 MESSAGE_TYPE["ImageData"] = 410;
 
+const HUBURL = "ws://localhost:5000/";
+
 class HubClient {
     constructor(url, clientId, clientName, clientType) {
         this.clientId = clientId;
@@ -176,7 +178,7 @@ var mouseDown = false;
 
 $(function () {
 
-    let hubUrl = "ws://localhost:5000/";
+    let hubUrl = HUBURL;
 
     control = new HubClient(hubUrl, "control1", "Control", CLIENT_TYPE["Control"]);
 

@@ -57,7 +57,8 @@ def on_message(ws, msg):
         _registered = True
     elif message.MessageType == MessageType.MOVECOMMAND.value:
         axis = Axis(**message.Action)
-        _devastator.move(int(axis.X), int(axis.Y))
+        print("### move command received: X:%s Y:%s" %(axis.X, axis.Y))
+        # _devastator.move(int(axis.X), int(axis.Y))
     elif message.MessageType == MessageType.CONFIRMATION.value:
         print('### message receipt for \'%s\' received ###' %(message.MessageId))
     else:
